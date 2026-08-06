@@ -1,0 +1,31 @@
+---
+import Navbar from '../components/Navbar.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import Footer from '../components/Footer.astro';
+import { PROJECTS } from '../data/projects';
+import '../styles/global.css';
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Work Showcase | Studio</title>
+  </head>
+  <body class="bg-cream-100 min-h-screen flex flex-col">
+    <Navbar />
+    <main class="flex-grow max-w-5xl mx-auto px-6 py-16 w-full">
+      <h1 class="text-4xl font-serif font-bold text-ink-900">Selected Work</h1>
+      <p class="text-stone-600 mt-2 max-w-xl">
+        A detailed archive of mobile applications, enterprise platforms, and technical architecture projects.
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-12">
+        {PROJECTS.map((project) => (
+          <ProjectCard project={project} />
+        ))}
+      </div>
+    </main>
+    <Footer />
+  </body>
+</html>

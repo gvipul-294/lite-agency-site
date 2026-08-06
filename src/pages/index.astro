@@ -1,0 +1,41 @@
+---
+import Navbar from '../components/Navbar.astro';
+import Hero from '../components/Hero.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import Footer from '../components/Footer.astro';
+import { PROJECTS } from '../data/projects';
+import '../styles/global.css';
+
+const featuredProjects = PROJECTS.filter((p) => p.featured);
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Software Engineering Studio</title>
+  </head>
+  <body class="bg-cream-100 min-h-screen flex flex-col">
+    <Navbar />
+    <main class="flex-grow">
+      <Hero />
+      
+      <section class="max-w-5xl mx-auto px-6 py-12">
+        <div class="flex justify-between items-end mb-8">
+          <div>
+            <h2 class="text-2xl font-serif font-bold text-ink-900">Featured Showcase</h2>
+            <p class="text-sm text-stone-600 mt-1">Select software systems and deliverables.</p>
+          </div>
+          <a href="/work" class="text-sm font-semibold text-ink-900 hover:underline">View all &rarr;</a>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {featuredProjects.map((project) => (
+            <ProjectCard project={project} />
+          ))}
+        </div>
+      </section>
+    </main>
+    <Footer />
+  </body>
+</html>
