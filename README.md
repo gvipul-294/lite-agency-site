@@ -1,3 +1,5 @@
+## Deployed at https://lite-agency-site.vercel.app/
+
 ### Navigate to the project directory
 ```cd lite-agency-site```
 
@@ -39,6 +41,8 @@ Update projects directly in `src/data/projects.ts` without modifying UI layout c
   featured: true // Controls display on the Home page grid
 }
 ```
+
+Update ```contact.astro``` for form and calendar link.
 
 ---
 
