@@ -1,14 +1,35 @@
 ---
+const LINKS = [
+  { href: '/', label: 'Home' },
+  { href: '/work', label: 'Work' },
+  { href: '/blog', label: 'Blog' },
+  { href: '/contact', label: 'Contact & Book' }
+];
+
+// Trailing slashes vary between dev and the built output, so normalise before
+// comparing. Section links stay active on their child pages (e.g. a blog post).
+const path = Astro.url.pathname.replace(/\/+$/, '') || '/';
+const isActive = (href: string) =>
+  href === '/' ? path === '/' : path === href || path.startsWith(`${href}/`);
 ---
 <header class="w-full border-b border-cream-300/60 bg-cream-100/80 backdrop-blur-sm sticky top-0 z-50">
   <div class="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
     <a href="/" class="font-serif text-xl font-bold tracking-tight text-ink-900">
       Project<span class="text-stone-500">X</span>
     </a>
-    <nav class="flex gap-6 text-sm font-medium text-stone-700">
-      <a href="/work" class="hover:text-ink-900 transition-colors">Work</a>
-      <a href="/blog" class="hover:text-ink-900 transition-colors">Blog</a>
-      <a href="/contact" class="hover:text-ink-900 transition-colors">Contact & Book</a>
+    <nav class="flex gap-4 sm:gap-6 text-sm font-medium text-stone-700">
+      {LINKS.map((link) => (
+        <a
+          href={link.href}
+          aria-current={isActive(link.href) ? 'page' : undefined}
+          class:list={[
+            'transition-colors hover:text-ink-900',
+            isActive(link.href) && 'text-ink-900 font-semibold'
+          ]}
+        >
+          {link.label}
+        </a>
+      ))}
     </nav>
   </div>
 </header>
