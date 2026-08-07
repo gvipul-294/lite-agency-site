@@ -7,3 +7,85 @@
     @apply bg-cream-100 text-ink-900 font-sans antialiased min-h-screen flex flex-col selection:bg-ink-900 selection:text-cream-100;
   }
 }
+
+/* Long-form article styles for rendered Markdown (blog posts).
+   Hand-rolled rather than @tailwindcss/typography so headings stay on the
+   cream/ink palette and the serif display face carries through. */
+@layer components {
+  .article > * + * {
+    @apply mt-5;
+  }
+
+  .article h2 {
+    @apply mt-12 mb-4 text-2xl font-serif font-bold text-ink-900 scroll-mt-24;
+  }
+
+  .article h3 {
+    @apply mt-8 mb-3 text-lg font-serif font-semibold text-ink-900 scroll-mt-24;
+  }
+
+  .article p,
+  .article li {
+    @apply text-[15px] leading-relaxed text-stone-700;
+  }
+
+  .article strong {
+    @apply font-semibold text-ink-900;
+  }
+
+  .article a {
+    @apply text-ink-900 underline decoration-stone-400 underline-offset-2 hover:decoration-ink-900;
+  }
+
+  .article ul {
+    @apply list-disc pl-5 space-y-2;
+  }
+
+  .article ol {
+    @apply list-decimal pl-5 space-y-2;
+  }
+
+  /* Nested lists shouldn't inherit the parent's vertical rhythm. */
+  .article li > ul,
+  .article li > ol {
+    @apply mt-2;
+  }
+
+  .article blockquote {
+    @apply border-l-2 border-stone-300 pl-4 italic text-stone-600;
+  }
+
+  .article code {
+    @apply px-1.5 py-0.5 text-[13px] font-mono bg-cream-200/70 text-ink-800 rounded;
+  }
+
+  /* Fenced blocks: reset the inline pill styling, then scroll wide output. */
+  .article pre {
+    @apply p-4 my-6 rounded-xl bg-ink-900 overflow-x-auto text-[13px] leading-relaxed;
+  }
+
+  .article pre code {
+    @apply p-0 bg-transparent text-cream-200 whitespace-pre;
+  }
+
+  .article hr {
+    @apply my-10 border-stone-200;
+  }
+
+  .article table {
+    @apply w-full my-6 text-sm border-collapse;
+  }
+
+  .article th,
+  .article td {
+    @apply border border-stone-200 px-3 py-2 text-left;
+  }
+
+  .article th {
+    @apply bg-cream-200/60 font-semibold text-ink-900;
+  }
+
+  .article img {
+    @apply my-6 rounded-xl max-w-full;
+  }
+}
