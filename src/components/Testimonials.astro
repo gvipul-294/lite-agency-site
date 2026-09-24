@@ -1,0 +1,48 @@
+---
+const testimonials = [
+  {
+    quote:
+      'smooth and hassle-free process',
+    name: 'Product leader',
+    company: 'Stockseyes.com',
+  },
+  {
+    quote:
+      'Every decision was explained clearly, every handoff was tidy, and the result feels like a product our internal team can confidently keep building on.',
+    name: 'Operations director',
+    company: 'Growth-stage services business',
+  },
+  {
+    quote:
+      'The team turned a complex workflow into something our customers understand immediately. The work was thoughtful, fast, and refreshingly straightforward.',
+    name: 'Founder',
+    company: 'Early-stage technology company',
+  },
+];
+---
+
+<section class="border-y border-cream-300/60 bg-cream-200/35" aria-labelledby="testimonials-heading">
+  <div class="max-w-5xl mx-auto px-6 py-16">
+    <div class="max-w-2xl">
+      <p class="text-xs uppercase tracking-widest font-semibold text-stone-500">Client perspective</p>
+      <h2 id="testimonials-heading" class="mt-3 text-3xl font-serif font-bold text-ink-900">A calm, capable partner for meaningful work.</h2>
+      <p class="mt-3 text-stone-600 leading-relaxed">
+        Clear communication, considered craft, and a team that stays close to the problem from the first conversation through launch.
+      </p>
+    </div>
+
+    <div class="mt-10 grid grid-cols-1 gap-5 md:grid-cols-3">
+      {testimonials.map((testimonial) => (
+        <figure class="flex flex-col rounded-xl border border-cream-300 bg-cream-100 p-6 shadow-sm">
+          <blockquote class="text-[15px] leading-relaxed text-stone-700">
+            <span class="font-serif text-3xl leading-none text-stone-400" aria-hidden="true">&ldquo;</span>{testimonial.quote}
+          </blockquote>
+          <figcaption class="mt-6 border-t border-cream-300 pt-4 text-sm">
+            <span class="block font-semibold text-ink-900">{testimonial.name}</span>
+            <span class="block mt-0.5 text-stone-500">{testimonial.company}</span>
+          </figcaption>
+        </figure>
+      ))}
+    </div>
+  </div>
+</section>

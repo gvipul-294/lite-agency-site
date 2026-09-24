@@ -46,7 +46,24 @@ Update projects directly in `src/data/projects.ts` without modifying UI layout c
 }
 ```
 
-Update ```contact.astro``` for form and calendar link.
+## Contact and booking setup
+
+The contact page has no fake third-party URLs baked into the build. Configure the
+two public environment variables below in your hosting provider (or copy
+`.env.example` to `.env` for local development), then redeploy:
+
+```bash
+# Either a Cal.com path or complete public booking URL
+PUBLIC_CAL_LINK=https://cal.com/project-x-294/15min
+
+# The ID after https://formspree.io/f/ in your Formspree form endpoint
+PUBLIC_FORMSPREE_FORM_ID=xjykrqag
+```
+
+The calendar embeds the configured Cal.com page. The contact form posts directly
+to that Formspree endpoint and redirects visitors to `/contact?sent=true` after
+submission. Until either service is configured, the page shows a clear temporary
+message instead of a broken embed or form.
 
 ---
 
