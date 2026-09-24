@@ -3,6 +3,10 @@ import Navbar from '../components/Navbar.astro';
 import CalBooking from '../components/CalBooking.astro';
 import Footer from '../components/Footer.astro';
 import '../styles/global.css';
+
+const calLink = import.meta.env.PUBLIC_CAL_LINK;
+const formspreeFormId = import.meta.env.PUBLIC_FORMSPREE_FORM_ID;
+const formAction = formspreeFormId ? `https://formspree.io/f/${formspreeFormId}` : undefined;
 ---
 
 <html lang="en">
@@ -21,30 +25,57 @@ import '../styles/global.css';
 
       <section class="mt-10">
         <h2 class="text-xl font-serif font-semibold text-ink-900 mb-4">Direct Schedule</h2>
-        <CalBooking calLink="your-username/30min" />
+        <CalBooking calLink={calLink} />
       </section>
 
       <section class="mt-16 pt-12 border-t border-stone-300">
         <h2 class="text-xl font-serif font-semibold text-ink-900 mb-2">Send a Message</h2>
         <p class="text-sm text-stone-600 mb-6">Prefer email? Tell us about your project and we will reply within one business day.</p>
-        
-        <form action="https://formspree.io/f/your-form-id" method="POST" class="space-y-4 max-w-xl">
-          <div>
-            <label for="name" class="block text-xs font-semibold text-stone-700 uppercase">Name</label>
-            <input type="text" id="name" name="name" required class="mt-1 w-full p-3 rounded border border-stone-300 bg-white focus:outline-none focus:border-ink-900 text-sm" />
+
+        {formAction ? (
+          <form action={formAction} method="POST" class="space-y-4 max-w-xl" data-contact-form>
+            <input type="hidden" name="_subject" value="New project enquiry" />
+            <input type="hidden" data-formspree-next />
+            <div>
+              <label for="name" class="block text-xs font-semibold text-stone-700 uppercase">Name</label>
+              <input type="text" id="name" name="name" autocomplete="name" required class="mt-1 w-full p-3 rounded border border-stone-300 bg-white focus:outline-none focus:border-ink-900 text-sm" />
+            </div>
+            <div>
+              <label for="email" class="block text-xs font-semibold text-stone-700 uppercase">Email</label>
+              <input type="email" id="email" name="email" autocomplete="email" required class="mt-1 w-full p-3 rounded border border-stone-300 bg-white focus:outline-none focus:border-ink-900 text-sm" />
+            </div>
+            <div>
+              <label for="message" class="block text-xs font-semibold text-stone-700 uppercase">Project Overview</label>
+              <textarea id="message" name="message" rows="4" required class="mt-1 w-full p-3 rounded border border-stone-300 bg-white focus:outline-none focus:border-ink-900 text-sm"></textarea>
+            </div>
+            <button type="submit" class="px-6 py-3 bg-ink-900 text-cream-100 font-medium text-sm rounded hover:bg-stone-800 transition-colors">
+              Send Message
+            </button>
+          </form>
+          <div class="max-w-xl rounded-xl border border-stone-300 bg-white p-6 text-sm leading-relaxed text-stone-700" role="status" hidden data-sent-message>
+            <p class="font-semibold text-ink-900">Thanks — your message is on its way.</p>
+            <p class="mt-1">We will be in touch within one business day.</p>
           </div>
-          <div>
-            <label for="email" class="block text-xs font-semibold text-stone-700 uppercase">Email</label>
-            <input type="email" id="email" name="email" required class="mt-1 w-full p-3 rounded border border-stone-300 bg-white focus:outline-none focus:border-ink-900 text-sm" />
+          <script>
+            const nextField = /** @type {HTMLInputElement | null} */ (document.querySelector('[data-formspree-next]'));
+            const contactForm = document.querySelector('[data-contact-form]');
+            const sentMessage = document.querySelector('[data-sent-message]');
+
+            if (nextField) {
+              nextField.name = '_next';
+              nextField.value = `${window.location.origin}/contact?sent=true`;
+            }
+
+            if (window.location.search.includes('sent=true') && contactForm && sentMessage) {
+              contactForm.setAttribute('hidden', '');
+              sentMessage.removeAttribute('hidden');
+            }
+          </script>
+        ) : (
+          <div class="max-w-xl rounded-xl border border-dashed border-stone-300 bg-cream-200/50 p-6 text-sm leading-relaxed text-stone-600">
+            We are preparing our secure contact form. Please check back shortly to tell us about your project.
           </div>
-          <div>
-            <label for="message" class="block text-xs font-semibold text-stone-700 uppercase">Project Overview</label>
-            <textarea id="message" name="message" rows="4" required class="mt-1 w-full p-3 rounded border border-stone-300 bg-white focus:outline-none focus:border-ink-900 text-sm"></textarea>
-          </div>
-          <button type="submit" class="px-6 py-3 bg-ink-900 text-cream-100 font-medium text-sm rounded hover:bg-stone-800 transition-colors">
-            Send Message
-          </button>
-        </form>
+        )}
       </section>
     </main>
     <Footer />
