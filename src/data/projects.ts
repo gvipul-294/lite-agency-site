@@ -2,6 +2,17 @@ import type { Project } from '../types/project';
 
 export const PROJECTS: Project[] = [
   {
+    id: '4',
+    title: 'Stockseyes Market Data API',
+    subtitle: 'Developer-First Real-Time & Historical Market Data',
+    description: 'We shaped Stockseyes as a developer-friendly market-data API, with a product experience that brings real-time quotes, historical queries, API access controls, and a scalable ingestion architecture into one clear vision. The live site is an illustrative demo; production data services are still to be connected.',
+    role: 'Product Concept & Platform Architecture',
+    yearRange: '2026',
+    techStack: ['Market Data API', 'REST', 'Kafka', 'Redis'],
+    links: { live: 'https://stockseyes-light.vercel.app/' },
+    featured: true
+  },
+  {
     id: '1',
     title: 'Cross-Platform Mobile Engine',
     subtitle: 'High-Scale Mobile & Web Architecture',
